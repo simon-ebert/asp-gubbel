@@ -105,7 +105,7 @@ class SiteController extends Controller {
 
                 $this->client->setAccessToken(Yii::app()->session['auth_token']);
 
-//                 look for calendar 'asp-gubbel'
+                // look for calendar 'Gubbel'
                 $calList = $this->service->getService('Calendar')->calendarList->listCalendarList();
                 foreach ($calList->items as $item) {
                     if ($item->summary == 'Gubbel') {
@@ -114,14 +114,14 @@ class SiteController extends Controller {
                     }
                 }
 
-//                // create calendar 'asp-gubbel' if necessary
-                if (!$id) {
+                // create calendar 'Gubbel' if necessary
+                if (!isset($id)) {
                     $calendar = $this->service->getObject('Calendar', $this->service);
                     $calendar->setLocation('Germany');
                     $calendar->setSummary('Gubbel');
                     $calendar->setTimeZone('Europe/Berlin');
 
-                    $createdCalendar = $this->service->calendars->insert($calendar);
+                    $createdCalendar = $this->service->getService('Calendar')->calendars->insert($calendar);
 
                     $id = $createdCalendar->getId();
                     echo $id;
@@ -157,12 +157,12 @@ class SiteController extends Controller {
     }
 
     public function updateEvent() {
-        
+
         $this->render('event'
 //                , array('model' => $model)
         );
     }
-    
+
     public function actionShowEvents() {
         //Create an extension Instance
         $this->service = Yii::app()->JGoogleAPI;
