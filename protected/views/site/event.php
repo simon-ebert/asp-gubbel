@@ -47,19 +47,19 @@ try {
 
             <div class="row">
                 <?php echo $form->labelEx($model, 'date (NOT IMPLEMENTED, NEED DATEPICKER)'); ?>
-                <?php echo $form->textField($model, 'date'); ?>
+                <?php echo $form->dateField($model, 'date'); ?>
                 <?php echo $form->error($model, 'date'); ?>
             </div>
 
             <div class="row">
                 <?php echo $form->labelEx($model, 'starttime (NOT IMPLEMENTED, NEED TIMEPICKER)'); ?>
-                <?php echo $form->textField($model, 'starttime'); ?>
+                <?php echo $form->timeField($model, 'starttime'); ?>
                 <?php echo $form->error($model, 'starttime'); ?>
             </div>
 
             <div class="row">
                 <?php echo $form->labelEx($model, 'endtime (NOT IMPLEMENTED, NEED TIMEPICKER)'); ?>
-                <?php echo $form->textField($model, 'endtime'); ?>
+                <?php echo $form->timeField($model, 'endtime'); ?>
                 <?php echo $form->error($model, 'endtime'); ?>
             </div>
 
@@ -71,10 +71,10 @@ try {
 
             <div class="row">
                 <?php echo $form->labelEx($model, 'description'); ?>
-                <?php echo $form->textField($model, 'description'); ?>
+                <?php echo $form->textarea($model, 'description'); ?>
                 <?php echo $form->error($model, 'description'); ?>
             </div>
-
+            
             <div class="row">
                 <?php echo $form->labelEx($model, 'attendees'); ?>
                 <?php echo $form->textField($model, 'attendees'); ?>
