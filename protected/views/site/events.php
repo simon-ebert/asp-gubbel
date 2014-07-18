@@ -3,8 +3,15 @@
 /* @var $model EventForm */
 /* @var $form CActiveForm  */
 
-Yii::app()->clientScript->registerCoreScript('jquery.ui');
-Yii::app()->clientScript->registerCssFile(Yii::app()->clientScript->getCoreScriptUrl().'/jui/css/base/jquery-ui.css');
+$basePath = Yii::app()->basePath; 
+
+$cs = Yii::app()->getClientScript();
+
+$cs->registerCssFile('http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css');
+$cs->registerScriptFile('http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js');
+
+$cs->registerCoreScript('jquery.ui');
+$cs->registerCssFile($cs->getCoreScriptUrl().'/jui/css/base/jquery-ui.css');
 
 $this->pageTitle = Yii::app()->name . ' - Events';
 $this->breadcrumbs = array(
