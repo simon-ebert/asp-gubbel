@@ -47,9 +47,9 @@ class SiteController extends Controller
 	}
 
 	/**
-	 * Displays the contact page
+	 * Displays the profile page
 	 */
-	public function actionContact()
+	public function actionProfile()
 	{
 		$model=new ContactForm;
 		if(isset($_POST['ContactForm']))
@@ -65,11 +65,11 @@ class SiteController extends Controller
 					"Content-Type: text/plain; charset=UTF-8";
 
 				mail(Yii::app()->params['adminEmail'],$subject,$model->body,$headers);
-				Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
+				Yii::app()->user->setFlash('profile','Thank you for contacting us. We will respond to you as soon as possible.');
 				$this->refresh();
 			}
 		}
-		$this->render('contact',array('model'=>$model));
+		$this->render('profile',array('model'=>$model));
 	}
 
 	/**
