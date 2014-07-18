@@ -18,6 +18,8 @@
 
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
+        
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/layout.css" />
 
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
@@ -46,16 +48,23 @@
 
             <div class="clear"></div>
 
-            <div data-role="footer" data-position="fixed">
-                <div data-role="navbar" data-position="fixed">
-                    <ul>
-                        <li><a href="#" class="ui-btn-active">Profile</a></li>
-                        <li><a href="#">Events</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </div><!-- /navbar -->
+            <div id="footer-navbar">
+<!--                <form>
+                    <div id="radio">
+                        <input type="radio" id="radio1" name="radio" /><label for="radio1" class="footer-button" >Choice 1</label>
+                        <input type="radio" id="radio2" name="radio" checked="checked" /><label for="radio2" class="footer-button" >Choice 2</label>
+                        <input type="radio" id="radio3" name="radio" /><label for="radio3" class="footer-button" >Choice 3</label>
+                    </div>
+                </form>-->
+<div class="footer-button">asdf</div>
+<div class="footer-button">asdf</div>
+<div class="footer-button">asdf</div>
             </div>
         </div><!-- page -->
+
+        <script>
+
+        </script>
 
     </body>
 </html>

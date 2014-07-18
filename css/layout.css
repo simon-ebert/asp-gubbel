@@ -1,0 +1,10 @@
+#footer-navbar {
+    position: fixed; 
+    bottom: 0px; 
+    width: 100%;
+}
+
+.footer-button {
+    width: 33%;
+    height: 100px;
+}
