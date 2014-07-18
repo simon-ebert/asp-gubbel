@@ -5,13 +5,13 @@
 
 $this->pageTitle=Yii::app()->name . ' - Contact Us';
 $this->breadcrumbs=array(
-	'Contact',
+	'Profile',
 );
 ?>
 
 <h1>Contact Us</h1>
 
-<?php if(Yii::app()->user->hasFlash('contact')): ?>
+<?php if(Yii::app()->user->hasFlash('profile')): ?>
 
 <div class="flash-success">
 	<?php echo Yii::app()->user->getFlash('contact'); ?>
