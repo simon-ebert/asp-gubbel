@@ -24,7 +24,7 @@ try {
             }
         }
 
-        if ($id) {
+        if (isset($id)) {
             $events = $this->service->getService('Calendar')->events->listEvents($id);
             $i = 1
             ?>
