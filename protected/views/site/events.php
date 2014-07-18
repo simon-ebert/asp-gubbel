@@ -89,41 +89,7 @@ try {
     $( "#accordion" ).accordion();
   });
   </script>
-        
-            <table>
-                <tr>
-                    <td>#</td>
-                    <td>Summary</td>
-                    <td>Date</td>
-                    <td>Starttime</td>
-                    <td>Endtime</td>
-                    <td>Location</td>
-                    <td>Description</td>
-                    <td>Attendees</td>
-                    <td>Update</td>
-                </tr>
-                <?php foreach ($events->getItems() as $event) {
-                    /* var_dump($event); */ ?>
-                
-                    <tr>
-                        <td><?php echo $i++; ?></td>
-                        <td><?php echo $event->summary; ?></td>
-                        <td><?php echo $event->start->dateTime; ?></td>
-                        <td><?php echo $event->start->dateTime; ?></td>
-                        <td><?php echo $event->end->dateTime; ?></td>
-                        <td><?php echo $event->location; ?></td>
-                        <td><?php echo $event->description; ?></td>
-                        <td><?php
-                            if (count($event->attendees) > 0) {
-                                foreach ($event->attendees as $attendee) {
-                                    echo $attendee->email . ' (' . $attendee->responseStatus . ')<br/>';
-                                }
-                            }
-                            ?></td>
-                        <td><a href="#">Update</a></td>
-                    </tr>
-            <?php } ?>
-            </table>
+
             <?php
         }else{
             echo '<p>There are currently no events</p>';
