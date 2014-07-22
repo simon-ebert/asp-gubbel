@@ -2,9 +2,19 @@
     position: fixed; 
     bottom: 0px; 
     width: 100%;
+    background-color: grey;
 }
 
 .footer-button {
+    display: inline;
+    float: left;
     width: 33%;
-    height: 100px;
+    text-align: center;
+    height: 50px;
+    padding: 10px 0;
+    border: 1px solid white;
+}
+
+#content {
+    padding-bottom: 70px;
 }
