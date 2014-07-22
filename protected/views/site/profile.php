@@ -10,16 +10,21 @@ $this->breadcrumbs = array(
 $jgoogleapi = Yii::app()->JGoogleAPI;
 $client = $jgoogleapi->getClient();
 
-if (!isset(Yii::app()->session['auth_token'])) {
+if (null !== Yii::app()->request->getQuery('logout')) {
+    unset(Yii::app()->session['auth_token']);
+}
 
+if (null !== Yii::app()->request->getQuery('code')) {
+    $client->authenticate(Yii::app()->request->getQuery('code'));
+    Yii::app()->session['auth_token'] = $client->getAccessToken();
+    header('Location: http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']);
+}
+
+if (null === Yii::app()->session['auth_token']) {
     echo CHtml::link(
             CHtml::image('assets/sign-in-with-google.png'), $client->createAuthUrl());
-
-    Yii::app()->session['auth_token'] = $client->getAccessToken();
 } else {
     $client->setAccessToken(Yii::app()->session['auth_token']);
-
-    $cal = $jgoogleapi->getService('Calendar');
     ?>
 
     <h1>Profile</h1>

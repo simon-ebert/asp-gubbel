@@ -6,13 +6,12 @@
 }
 
 .footer-button {
-    display: inline;
-    float: left;
-    width: 33%;
+    display: inline-block;
+    width: 33.1%;
     text-align: center;
     height: 50px;
     padding: 10px 0;
-    border: 1px solid white;
+    border-right: 1px solid white;
 }
 
 #content {

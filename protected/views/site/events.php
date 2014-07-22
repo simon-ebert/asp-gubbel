@@ -48,7 +48,7 @@ if (null === Yii::app()->session['auth_token']) {
 
     if (isset($id)) {
         $events = $jgoogleapi->getService('Calendar')->events->listEvents($id);
-        $i = 1
+        $i = 1;
         ?>
 
         <h1>Events</h1>
@@ -72,13 +72,15 @@ if (null === Yii::app()->session['auth_token']) {
                             Location: <?php echo $event->location; ?>
                         </p>
                         <p>
-                            Time: <?php echo $dateStart->format('g:i A').' - '.$dateEnd->format('g:i A'); ?>
+                            Time: <?php echo $dateStart->format('g:i A') . ' - ' . $dateEnd->format('g:i A'); ?>
                         </p>
                         Attendees:
                         <ul>
                             <?php
-                            foreach ($event->attendees as $attendee) {
-                                echo '<li>' . $attendee->email . ' (' . $attendee->responseStatus . ')</li>';
+                            if (count($event->attendees) > 0) {
+                                foreach ($event->attendees as $attendee) {
+                                    echo '<li>' . $attendee->email . ' (' . $attendee->responseStatus . ')</li>';
+                                }
                             }
                             ?>
                         </ul>

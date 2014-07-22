@@ -44,8 +44,8 @@ return array(
                 'clientEmail' => '333515926117-mm09b1rd1nveou3gj55bgoas3dgdek9d@developer.gserviceaccount.com',
                 'clientSecret' => 'ohLMC7ANulRD9ogvAQhUTYDu',
                 'redirectUri' => ($_SERVER['HTTP_HOST'] == 'localhost') ?
-                        'http://localhost/asp-gubbel/index.php?r=site/showevents' :
-                        'https://asp-gubbel.herokuapp.com/index.php?r=site/showevents',
+                        'http://localhost/asp-gubbel/index.php' :
+                        'https://asp-gubbel.herokuapp.com/index.php',
                 'javascriptOrigins' => 'https://asp-gubbel.appspot.com',
             ),
             'simpleApiKey' => 'AIzaSyDHqh-a321XGF7S8GLts4_UE3etia-ZTZs',
