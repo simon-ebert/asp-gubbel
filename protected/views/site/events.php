@@ -7,9 +7,6 @@ $basePath = Yii::app()->basePath;
 
 $cs = Yii::app()->getClientScript();
 
-//$cs->registerCssFile('http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css');
-//$cs->registerScriptFile('http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js');
-
 $cs->registerCoreScript('jquery.ui');
 $cs->registerCssFile($cs->getCoreScriptUrl() . '/jui/css/base/jquery-ui.css');
 
