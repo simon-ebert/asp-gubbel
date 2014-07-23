@@ -29,9 +29,6 @@ class SiteController extends Controller {
      * when an action is not explicitly requested by users.
      */
     public function actionIndex() {
-        // renders the view file 'protected/views/site/index.php'
-        // using the default layout 'protected/views/layouts/main.php'
-
         return $this->actionProfile();
     }
 
@@ -39,9 +36,17 @@ class SiteController extends Controller {
      * Displays the profile page
      */
     public function actionProfile() {
-        //Create an extension Instance
         $this->service = Yii::app()->JGoogleAPI;
         $this->client = Yii::app()->JGoogleAPI->getClient();
+
+        if (null !== Yii::app()->request->getQuery('code')) {
+            $this->client->authenticate(Yii::app()->request->getQuery('code'));
+            Yii::app()->session['auth_token'] = $this->client->getAccessToken();
+        }
+
+        if (!isset(Yii::app()->session['auth_token'])) {
+            return $this->actionLogin();
+        }
 
         $this->render('profile');
     }
@@ -51,12 +56,20 @@ class SiteController extends Controller {
         $this->service = Yii::app()->JGoogleAPI;
         $this->client = Yii::app()->JGoogleAPI->getClient();
 
+        $this->client->setAccessToken(Yii::app()->session['auth_token']);
+
+        // contacts
+        $req = new Google_HttpRequest("https://www.google.com/m8/feeds/contacts/default/full");
+        $val = $this->client->getIo()->authenticatedRequest($req);
+        $xml = new SimpleXMLElement($val->getResponseBody());
+        $xml->registerXPathNamespace('gd', 'http://schemas.google.com/g/2005');
+        $contacts = $xml->xpath('//gd:email');
+
+        // event model
         $model = new EventForm;
         if (isset($_POST['EventForm'])) {
             $model->attributes = $_POST['EventForm'];
             if ($model->validate()) {
-
-                $this->client->setAccessToken(Yii::app()->session['auth_token']);
 
                 // look for calendar 'Gubbel'
                 $calList = $this->service->getService('Calendar')->calendarList->listCalendarList();
@@ -80,23 +93,38 @@ class SiteController extends Controller {
                     echo $id;
                 }
 
-//                // create event
+                // date and time
+                $ymd = explode('-', $model->date);
+                $hms1 = explode(':', $model->starttime);
+                $hms2 = explode(':', $model->endtime);
+                $st = new DateTime;
+                $st->setDate($ymd[0], $ymd[1], $ymd[2]);
+                $st->setTime($hms1[0], $hms1[1]);
+                $et = new DateTime;
+                $et->setDate($ymd[0], $ymd[1], $ymd[2]);
+                $et->setTime($hms2[0], $hms2[1]);
+
+                // create event
                 $event = $this->service->getObject('Event', $this->service);
                 $event->setSummary($model->summary);
                 $event->setLocation($model->location);
                 $start = new Google_EventDateTime();
-                $start->setDateTime('2014-07-20T10:00:00.000-07:00');
+                $start->setDateTime(date(DateTime::ATOM, $st->getTimestamp()));
                 $event->setStart($start);
                 $end = new Google_EventDateTime();
-                $end->setDateTime('2014-07-20T10:25:00.000-07:00');
+                $end->setDateTime(date(DateTime::ATOM, $et->getTimestamp()));
                 $event->setEnd($end);
                 $event->setDescription($model->description);
                 $attendee1 = new Google_EventAttendee();
-                $attendee1->setEmail($model->attendees);
+                $attendee1->setEmail($model->attendee1);
+                $attendee2 = new Google_EventAttendee();
+                $attendee2->setEmail($model->attendee2);
+                $attendee3 = new Google_EventAttendee();
+                $attendee3->setEmail($model->attendee3);
+                $attendee4 = new Google_EventAttendee();
+                $attendee4->setEmail($model->attendee4);
 // ...
-                $attendees = array($attendee1
-                        // ...
-                );
+                $attendees = array($attendee1, $attendee2, $attendee3, $attendee4);
                 $event->attendees = $attendees;
 
                 $createdEvent = $this->service->getService('Calendar')->events->insert($id, $event, array("sendNotifications" => true));
@@ -105,7 +133,7 @@ class SiteController extends Controller {
         }
 
         $this->render('event'
-                , array('model' => $model)
+                , array('model' => $model, 'contacts' => $contacts)
         );
     }
 
@@ -117,17 +145,41 @@ class SiteController extends Controller {
     }
 
     public function actionEventsShow() {
-        //Create an extension Instance
         $this->service = Yii::app()->JGoogleAPI;
         $this->client = Yii::app()->JGoogleAPI->getClient();
-        
-        $this->render('events');
+
+        $this->client->setAccessToken(Yii::app()->session['auth_token']);
+
+        $calList = $this->service->getService('Calendar')->calendarList->listCalendarList();
+
+        foreach ($calList->items as $item) {
+            if ($item->summary == 'Gubbel') {
+                $id = $item->id;
+                break;
+            }
+        }
+
+        $show = Yii::app()->request->getQuery('show');
+        if ($show == 'current') {
+            $time = 'timeMin';
+            $showalt = 'past';
+        } else {
+            $time = 'timeMax';
+            $showalt = 'current';
+        }
+        $limit = date(DateTime::ATOM);
+
+        if (isset($id)) {
+            $events = $this->service->getService('Calendar')->events->listEvents($id, array('orderBy' => 'startTime', 'singleEvents' => true, $time => $limit));
+        }
+
+        $this->render('events', array('events' => $events, 'show' => $show, 'showAlt' => $showalt));
     }
 
     public function actionFaq() {
-        //Create an extension Instance
         $this->service = Yii::app()->JGoogleAPI;
         $this->client = Yii::app()->JGoogleAPI->getClient();
+        $this->client->setAccessToken(Yii::app()->session['auth_token']);
 
         $this->render('faq');
     }
@@ -155,23 +207,8 @@ class SiteController extends Controller {
      * Displays the login page
      */
     public function actionLogin() {
-        $model = new LoginForm;
-
-        // if it is ajax validation request
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-
-        // collect user input data
-        if (isset($_POST['LoginForm'])) {
-            $model->attributes = $_POST['LoginForm'];
-            // validate user input and redirect to the previous page if valid
-            if ($model->validate() && $model->login())
-                $this->redirect(Yii::app()->user->returnUrl);
-        }
-
-        $this->render('login', array('model' => $model));
+        $this->layout = 'none';
+        $this->render('login');
     }
 
     public function actionTest() {

@@ -13,7 +13,10 @@ class EventForm extends CFormModel {
     public $endtime;
     public $location;
     public $description;
-    public $attendees;
+    public $attendee1;
+    public $attendee2;
+    public $attendee3;
+    public $attendee4;
 
     /**
      * Declares the validation rules.
@@ -25,7 +28,7 @@ class EventForm extends CFormModel {
             array('date', 'default'),
             array('starttime, endtime', 'default'),
             array('location, description', 'default'),
-            array('attendees', 'default')
+            array('attendee1, attendee2, attendee3, attendee4', 'default')
         );
     }
 

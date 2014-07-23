@@ -60,6 +60,12 @@ return array(
                     'calendar' => array(
                         'https://www.googleapis.com/auth/calendar',
                     ),
+                    'contacts' => array(
+                        'https://www.google.com/m8/feeds/contacts/default/full',
+                    ),
+                    'drive' => array(
+                        'https://www.googleapis.com/auth/drive.file',
+                    ),
                 ),
             ),
             //Use objects when retriving data from api if true or an array if false

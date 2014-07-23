@@ -11,9 +11,16 @@
     text-align: center;
     height: 50px;
     padding: 10px 0;
-    border-left: 1px solid white;
+}
+
+.fbl {
+    border-right: 1px solid white;
 }
 
 #content {
     padding-bottom: 70px;
+}
+
+.inline {
+    display:inline-block;
 }

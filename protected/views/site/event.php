@@ -4,100 +4,78 @@
 /* @var $form CActiveForm  */
 
 $this->pageTitle = Yii::app()->name . ' - Event';
-$this->breadcrumbs = array(
-    'Event',
-);
+?>
 
-//Create an extension Instance
-$jgoogleapi = Yii::app()->JGoogleAPI;
-$client = $jgoogleapi->getClient();
+<h1>Create event</h1>
 
-if (null !== Yii::app()->request->getQuery('logout')) {
-    unset(Yii::app()->session['auth_token']);
-}
-
-if (null !== Yii::app()->request->getQuery('code')) {
-    $client->authenticate(Yii::app()->request->getQuery('code'));
-    Yii::app()->session['auth_token'] = $client->getAccessToken();
-    header('Location: http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']);
-}
-
-if (null === Yii::app()->session['auth_token']) {
-    echo CHtml::link(
-            CHtml::image('assets/sign-in-with-google.png'), $client->createAuthUrl());
-} else {
-    $client->setAccessToken(Yii::app()->session['auth_token']);
-
+<div class="form">
+    <?php
+    $form = $this->beginWidget('CActiveForm', array(
+        'id' => 'event-form',
+        'enableClientValidation' => true,
+        'clientOptions' => array(
+            'validateOnSubmit' => true,
+        ),
+    ));
     ?>
 
-    <h1>Create event</h1>
+    <div class="row">
+        <?php echo $form->labelEx($model, 'summary'); ?>
+        <?php echo $form->textField($model, 'summary', array('size' => 52)); ?>
+        <?php echo $form->error($model, 'summary'); ?>
+    </div>
 
-    <p>Please fill out the following form with your event information:</p>
+    <div class="row">
+        <?php echo $form->labelEx($model, 'date (NOT IMPLEMENTED)'); ?>
+        <?php echo $form->dateField($model, 'date'); ?>
+        <?php echo $form->error($model, 'date'); ?>
+    </div>
 
-    <div class="form">
-        <?php
-        $form = $this->beginWidget('CActiveForm', array(
-            'id' => 'event-form',
-            'enableClientValidation' => true,
-            'clientOptions' => array(
-                'validateOnSubmit' => true,
-            ),
-        ));
-        ?>
+    <div class="row">
+        <?php echo $form->labelEx($model, 'starttime (NOT IMPLEMENTED)'); ?>
+        <?php echo $form->timeField($model, 'starttime'); ?>
+        <?php echo $form->error($model, 'starttime'); ?>
+    </div>
 
-        <p class="note">Fields with <span class="required">*</span> are required.</p>
+    <div class="row">
+        <?php echo $form->labelEx($model, 'endtime (NOT IMPLEMENTED)'); ?>
+        <?php echo $form->timeField($model, 'endtime'); ?>
+        <?php echo $form->error($model, 'endtime'); ?>
+    </div>
 
-        <div class="row">
-            <?php echo $form->labelEx($model, 'summary'); ?>
-            <?php echo $form->textField($model, 'summary'); ?>
-            <?php echo $form->error($model, 'summary'); ?>
-        </div>
+    <div class="row">
+        <?php echo $form->labelEx($model, 'location'); ?>
+        <?php echo $form->textField($model, 'location', array('size' => 52)); ?>
+        <?php echo $form->error($model, 'location'); ?>
+    </div>
 
-        <div class="row">
-            <?php echo $form->labelEx($model, 'date (NOT IMPLEMENTED, NEED DATEPICKER)'); ?>
-            <?php echo $form->dateField($model, 'date'); ?>
-            <?php echo $form->error($model, 'date'); ?>
-        </div>
+    <div class="row">
+        <?php echo $form->labelEx($model, 'description'); ?>
+        <?php echo $form->textarea($model, 'description', array('cols' => 40, 'rows' => 5)); ?>
+        <?php echo $form->error($model, 'description'); ?>
+    </div>
 
-        <div class="row">
-            <?php echo $form->labelEx($model, 'starttime (NOT IMPLEMENTED, NEED TIMEPICKER)'); ?>
-            <?php echo $form->timeField($model, 'starttime'); ?>
-            <?php echo $form->error($model, 'starttime'); ?>
-        </div>
+    <div class="row">
+        <?php echo $form->labelEx($model, 'attendees'); ?>
+        <?php echo $form->emailField($model, 'attendee1'); ?>
+        <?php echo $form->error($model, 'attendee1'); ?>
+    </div>
+    <div class="row">
+        <?php echo $form->emailField($model, 'attendee2'); ?>
+        <?php echo $form->error($model, 'attendee2'); ?>
+    </div>
+    <div class="row">
+        <?php echo $form->emailField($model, 'attendee3'); ?>
+        <?php echo $form->error($model, 'attendee3'); ?>
+    </div>
+    <div class="row">
+        <?php echo $form->emailField($model, 'attendee4'); ?>
+        <?php echo $form->error($model, 'attendee4'); ?>
+    </div>
 
-        <div class="row">
-            <?php echo $form->labelEx($model, 'endtime (NOT IMPLEMENTED, NEED TIMEPICKER)'); ?>
-            <?php echo $form->timeField($model, 'endtime'); ?>
-            <?php echo $form->error($model, 'endtime'); ?>
-        </div>
+    <div class="row buttons">
+        <?php echo CHtml::submitButton('Create event'); ?>
+    </div>
 
-        <div class="row">
-            <?php echo $form->labelEx($model, 'location'); ?>
-            <?php echo $form->textField($model, 'location'); ?>
-            <?php echo $form->error($model, 'location'); ?>
-        </div>
-
-        <div class="row">
-            <?php echo $form->labelEx($model, 'description'); ?>
-            <?php echo $form->textarea($model, 'description'); ?>
-            <?php echo $form->error($model, 'description'); ?>
-        </div>
-
-        <div class="row">
-            <?php echo $form->labelEx($model, 'attendees'); ?>
-            <?php echo $form->textField($model, 'attendees'); ?>
-            <?php echo $form->error($model, 'attendees'); ?>
-        </div>
-
-        <div class="row buttons">
-            <?php echo CHtml::submitButton('Create event'); ?>
-        </div>
-
-        <?php $this->endWidget(); ?>
-    </div><!-- form -->
-
-    <?php
-    // We're not done yet. Remember to update the cached access token.
-    // Remember to replace $_SESSION with a real database or memcached.
-    Yii::app()->session['auth_token'] = $client->getAccessToken();
-}
+    <?php $this->endWidget(); ?>
+</div><!-- form -->
