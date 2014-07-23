@@ -2,7 +2,7 @@
     position: fixed; 
     bottom: 0px; 
     width: 100%;
-    background-color: grey;
+    background-color: #e6e6e6;
 }
 
 .footer-button {
@@ -23,4 +23,24 @@
 
 .inline {
     display:inline-block;
+}
+
+.going {
+    color: green;
+}
+
+.waiting {
+    color: black;
+}
+
+.declined {
+    color: red;
+}
+
+.attendees {
+    list-style-type: square;
+}
+
+.bold {
+    font-weight: bold;
 }

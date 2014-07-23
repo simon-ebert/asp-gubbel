@@ -5,6 +5,12 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
+if ($_SERVER['HTTP_HOST'] == 'localhost') {
+    $rUri = 'http://localhost/asp-gubbel/index.php';
+} else {
+    $rUri = 'https://asp-gubbel.herokuapp.com/index.php';
+}
+
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'eMeet',
@@ -16,7 +22,7 @@ return array(
         'application.components.*',
     ),
     'modules' => array(
-    // uncomment the following to enable the Gii tool
+// uncomment the following to enable the Gii tool
     /*
       'gii'=>array(
       'class'=>'system.gii.GiiModule',
@@ -38,14 +44,12 @@ return array(
 //                'clientEmail' => 'YOUR_SERVICE_ACCOUNT_CLIENT_EMAIL',
 //                'keyFilePath' => 'THE_PATH_TO_YOUR_KEY_FILE',
 //            ),
-            //You can define one of the authentication types or both (for a Service Account or Web Application Account)
+//You can define one of the authentication types or both (for a Service Account or Web Application Account)
             'webappAPI' => array(
                 'clientId' => '333515926117-mm09b1rd1nveou3gj55bgoas3dgdek9d.apps.googleusercontent.com',
                 'clientEmail' => '333515926117-mm09b1rd1nveou3gj55bgoas3dgdek9d@developer.gserviceaccount.com',
                 'clientSecret' => 'ohLMC7ANulRD9ogvAQhUTYDu',
-                'redirectUri' => ($_SERVER['HTTP_HOST'] == 'localhost') ?
-                        'http://localhost/asp-gubbel/index.php' :
-                        'https://asp-gubbel.herokuapp.com/index.php',
+                'redirectUri' => $rUri,
                 'javascriptOrigins' => 'https://asp-gubbel.appspot.com',
             ),
             'simpleApiKey' => 'AIzaSyDHqh-a321XGF7S8GLts4_UE3etia-ZTZs',
@@ -72,7 +76,7 @@ return array(
             'useObjects' => true,
         ),
         'user' => array(
-            // enable cookie-based authentication
+// enable cookie-based authentication
             'allowAutoLogin' => true,
         ),
         // uncomment the following to enable URLs in path-format
@@ -100,7 +104,7 @@ return array(
           ),
          */
         'errorHandler' => array(
-            // use 'site/error' action to display errors
+// use 'site/error' action to display errors
             'errorAction' => 'site/error',
         ),
         'log' => array(
@@ -120,9 +124,9 @@ return array(
         ),
     ),
     // application-level parameters that can be accessed
-    // using Yii::app()->params['paramName']
+// using Yii::app()->params['paramName']
     'params' => array(
-        // this is used in contact page
+// this is used in contact page
         'adminEmail' => 'ebert1simon@gmail.com',
     ),
 );

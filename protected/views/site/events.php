@@ -14,13 +14,12 @@ $this->pageTitle = Yii::app()->name . ' - Events';
 
 <div>
     <h1 class="inline"><?php echo ucfirst($show) . ' '; ?>Events </h1>
-    <?php echo CHtml::link(' (' . (($show == 'current') ? 'past' : 'current') . ') ', array('site/eventsshow', 'show' => $showAlt)); ?>
+    <h4 class="inline"><?php echo CHtml::link(' (' . (($show == 'current') ? 'past' : 'current') . ') ', array('site/eventsshow', 'show' => $showAlt)); ?></h4>
     <span class="right">
         <?php
         echo CHtml::submitButton('Create event', array('submit' => Yii::app()->createUrl('site/eventsCreate')));
         ?>
     </span>
-
 </div>
 
 <div id = "accordion">
@@ -35,25 +34,36 @@ $this->pageTitle = Yii::app()->name . ' - Events';
             $dateEnd = new DateTime($event->end->dateTime);
             ?>
 
-            <h3><?php echo $event->summary; ?>
-                <span class="right"><?php echo $dateStart->format('M d, Y'); ?></span>
-            </h3>
+            <h3><?php echo $event->summary; ?><br/>
+                <?php echo $dateStart->format('M d, Y'); ?></h3>
             <div>
                 <p>
                     <?php echo $event->description; ?>
                 </p>
                 <p>
-                    Location: <?php echo $event->location; ?>
+                    <span class="bold">Location: </span>
+                    <?php echo CHtml::link($event->location, "https://www.google.de/maps?q=" . $event->location); ?>
                 </p>
                 <p>
-                    Time: <?php echo $dateStart->format('g:i A') . ' - ' . $dateEnd->format('g:i A'); ?>
+                    <span class="bold">Time: </span><?php echo $dateStart->format('g:i A') . ' - ' . $dateEnd->format('g:i A'); ?>
                 </p>
-                Attendees:
-                <ul>
+                <span class="bold">Attendees:</span>
+                <ul class="attendees">
                     <?php
                     if (count($event->attendees) > 0) {
                         foreach ($event->attendees as $attendee) {
-                            echo '<li>' . $attendee->email . ' (' . $attendee->responseStatus . ')</li>';
+                            switch ($attendee->responseStatus) {
+                                case 'accepted':
+                                    $status = 'going';
+                                    break;
+                                case 'needsAction':
+                                    $status = 'waiting';
+                                    break;
+                                case 'declined':
+                                    $status = 'declined';
+                                    break;
+                            }
+                            echo '<li class="' . $status . '">' . $attendee->email . ' (' . $status . ')</li>';
                         }
                     }
                     ?>
