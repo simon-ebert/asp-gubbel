@@ -21,31 +21,31 @@ $this->pageTitle = Yii::app()->name . ' - Event';
 
     <div class="row">
         <?php echo $form->labelEx($model, 'summary'); ?>
-        <?php echo $form->textField($model, 'summary', array('size' => 52)); ?>
+        <?php echo $form->textField($model, 'summary', array('size' => 40)); ?>
         <?php echo $form->error($model, 'summary'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'date (NOT IMPLEMENTED)'); ?>
+        <?php echo $form->labelEx($model, 'date'); ?>
         <?php echo $form->dateField($model, 'date'); ?>
         <?php echo $form->error($model, 'date'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'starttime (NOT IMPLEMENTED)'); ?>
+        <?php echo $form->labelEx($model, 'starttime'); ?>
         <?php echo $form->timeField($model, 'starttime'); ?>
         <?php echo $form->error($model, 'starttime'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'endtime (NOT IMPLEMENTED)'); ?>
+        <?php echo $form->labelEx($model, 'endtime'); ?>
         <?php echo $form->timeField($model, 'endtime'); ?>
         <?php echo $form->error($model, 'endtime'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'location'); ?>
-        <?php echo $form->textField($model, 'location', array('size' => 52)); ?>
+        <?php echo $form->textField($model, 'location', array('size' => 40)); ?>
         <?php echo $form->error($model, 'location'); ?>
     </div>
 
