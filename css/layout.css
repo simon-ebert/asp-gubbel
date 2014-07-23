@@ -44,3 +44,8 @@
 .bold {
     font-weight: bold;
 }
+
+#createEvent {
+    height: 50px;
+    font-size: 20px;
+}

@@ -14,12 +14,12 @@ $this->pageTitle = Yii::app()->name . ' - Events';
 
 <div>
     <h1 class="inline"><?php echo ucfirst($show) . ' '; ?>Events </h1>
-    <h4 class="inline"><?php echo CHtml::link(' (' . (($show == 'current') ? 'past' : 'current') . ') ', array('site/eventsshow', 'show' => $showAlt)); ?></h4>
     <span class="right">
         <?php
-        echo CHtml::submitButton('Create event', array('submit' => Yii::app()->createUrl('site/eventsCreate')));
+        echo CHtml::submitButton('New', array('id' => 'createEvent', 'submit' => Yii::app()->createUrl('site/eventsCreate')));
         ?>
     </span>
+    <h4 class="xinline"><?php echo CHtml::link(' (' . (($show == 'current') ? 'past' : 'current') . ') ', array('site/eventsshow', 'show' => $showAlt)); ?></h4>
 </div>
 
 <div id = "accordion">
