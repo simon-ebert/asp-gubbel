@@ -2,8 +2,6 @@
 /* @var $this SiteController */
 /* @var $events Events */
 
-$basePath = Yii::app()->basePath;
-
 $cs = Yii::app()->getClientScript();
 
 $cs->registerCoreScript('jquery.ui');
