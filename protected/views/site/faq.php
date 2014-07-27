@@ -75,6 +75,6 @@ $cs->registerCssFile($cs->getCoreScriptUrl() . '/jui/css/base/jquery-ui.css');
 
 <script>
     $(function() {
-        $("#accordion").accordion();
+        $("#accordion").accordion({autoHeight: false});
     });
 </script>

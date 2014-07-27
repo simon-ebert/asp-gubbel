@@ -73,7 +73,7 @@ $this->pageTitle = Yii::app()->name . ' - Events';
     </div>
     <script>
         $(function() {
-            $("#accordion").accordion();
+            $("#accordion").accordion({autoHeight: false});
         });
     </script>
 
