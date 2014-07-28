@@ -742,7 +742,7 @@ class Google_CalendarService extends Google_Service {
   }
 }
 
-class Google_Acl extends Google_Model {
+class Google_Acl2 extends Google_Model {
   public $nextPageToken;
   protected $__itemsType = 'Google_AclRule';
   protected $__itemsDataType = 'array';

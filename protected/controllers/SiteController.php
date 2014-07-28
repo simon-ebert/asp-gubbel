@@ -39,20 +39,51 @@ class SiteController extends Controller {
         $this->service = Yii::app()->JGoogleAPI;
         $this->client = Yii::app()->JGoogleAPI->getClient();
 
+        $plus = $this->service->getService('Plus');
+        $calendar = $this->service->getService('Calendar');
+
         if (null !== Yii::app()->request->getQuery('code')) {
             $this->client->authenticate(Yii::app()->request->getQuery('code'));
             Yii::app()->session['auth_token'] = $this->client->getAccessToken();
+            $redirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+            header('Location: ' . filter_var($redirect, FILTER_SANITIZE_URL));
         }
 
         if (!isset(Yii::app()->session['auth_token'])) {
             return $this->actionLogin();
         }
 
-        $this->render('profile');
+        $this->client->setAccessToken(Yii::app()->session['auth_token']);
+
+//        // Calendar
+        $calList = $calendar->calendarList->listCalendarList();
+
+        foreach ($calList->items as $item) {
+            if ($item->summary == 'Gubbel') {
+                $id = $item->id;
+                break;
+            }
+        }
+
+        $limit = date(DateTime::ATOM);
+
+        if (isset($id)) {
+            $eventsCurrent = $this->service->getService('Calendar')->events->listEvents($id, array('orderBy' => 'startTime', 'singleEvents' => true, 'timeMin' => $limit));
+            $eventsPast = $this->service->getService('Calendar')->events->listEvents($id, array('orderBy' => 'startTime', 'singleEvents' => true, 'timeMax' => $limit));
+        }
+
+        $this->render('profile'
+        , array('plus' => $plus, 'eventsCurrent' => $eventsCurrent, 'eventsPast' => $eventsPast)
+        );
     }
 
     public function actionEventsCreate() {
-        //Create an extension Instance
+        // check if user is logged in
+        if (null === Yii::app()->session['auth_token']) {
+            return $this->actionProfile();
+        }
+
+        // Create an extension Instance
         $this->service = Yii::app()->JGoogleAPI;
         $this->client = Yii::app()->JGoogleAPI->getClient();
 
@@ -90,7 +121,6 @@ class SiteController extends Controller {
                     $createdCalendar = $this->service->getService('Calendar')->calendars->insert($calendar);
 
                     $id = $createdCalendar->getId();
-                    echo $id;
                 }
 
                 // date and time
@@ -138,6 +168,10 @@ class SiteController extends Controller {
     }
 
     public function actionEventUpdate() {
+        // check if user is logged in
+        if (null === Yii::app()->session['auth_token']) {
+            return $this->actionProfile();
+        }
 
         $this->render('event'
 //                , array('model' => $model)
@@ -145,6 +179,11 @@ class SiteController extends Controller {
     }
 
     public function actionEventsShow() {
+        // check if user is logged in
+        if (null === Yii::app()->session['auth_token']) {
+            return $this->actionProfile();
+        }
+
         $this->service = Yii::app()->JGoogleAPI;
         $this->client = Yii::app()->JGoogleAPI->getClient();
 
@@ -177,6 +216,11 @@ class SiteController extends Controller {
     }
 
     public function actionFaq() {
+        // check if user is logged in
+        if (null === Yii::app()->session['auth_token']) {
+            return $this->actionProfile();
+        }
+
         $this->service = Yii::app()->JGoogleAPI;
         $this->client = Yii::app()->JGoogleAPI->getClient();
         $this->client->setAccessToken(Yii::app()->session['auth_token']);

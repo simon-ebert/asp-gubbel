@@ -70,6 +70,10 @@ return array(
                     'drive' => array(
                         'https://www.googleapis.com/auth/drive.file',
                     ),
+                    'plus' => array(
+                        'https://www.googleapis.com/auth/plus.me',
+                        'https://www.googleapis.com/auth/userinfo.email',
+                    ),
                 ),
             ),
             //Use objects when retriving data from api if true or an array if false
