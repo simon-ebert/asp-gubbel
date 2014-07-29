@@ -40,7 +40,7 @@ $this->pageTitle = Yii::app()->name . ' - Events';
                 </p>
                 <p>
                     <span class="bold">Location: </span>
-                    <?php echo CHtml::link($event->location, "https://www.google.de/maps?q=" . $event->location); ?>
+                    <?php echo CHtml::link($event->location, "https://www.google.de/maps?q=" . urlencode($event->location)); ?>
                 </p>
                 <p>
                     <span class="bold">Time: </span><?php echo $dateStart->format('g:i A') . ' - ' . $dateEnd->format('g:i A'); ?>
@@ -66,6 +66,16 @@ $this->pageTitle = Yii::app()->name . ' - Events';
                     }
                     ?>
                 </ul>
+                <span>
+                    <?php
+                    echo CHtml::SubmitButton('Edit', array('id' => 'editEvent', 'submit' => '#'));
+                    ?>
+                </span>
+                <span class="right">
+                    <?php
+                    echo CHtml::ajaxSubmitButton('Delete', array('id' => 'deleteEvent', 'submit' => '#'));
+                    ?>
+                </span>
             </div>
         <?php } ?>
     </div>
