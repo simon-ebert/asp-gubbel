@@ -7,7 +7,12 @@ $this->pageTitle = Yii::app()->name . ' - Event';
 ?>
 
 <div id="head">
-    <h1>Create event</h1>
+    <h1 class="inline">Create event</h1>
+    <span class="right">
+        <?php
+        echo CHtml::submitButton('Back', array('id' => 'showEvents', 'submit' => Yii::app()->createUrl('site/eventsShow')));
+        ?>
+    </span>
 </div>
 
 <div class="form">

@@ -58,14 +58,14 @@ $email = $plus->people->get('me')->emails[0]->value;
     new Chart(ctx2).Pie([
         {
             value: 25,
-            color: "red",
-            highlight: "red",
+            color: "#e6e6e6",
+            highlight: "#e6e6e6",
             label: "No purchase"
         },
         {
             value: 5,
-            color: "green",
-            highlight: "green",
+            color: "#3b5998",
+            highlight: "#3b5998",
             label: "Purchase"
         }
     ], {});

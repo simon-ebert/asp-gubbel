@@ -9,7 +9,7 @@
     display: inline-block;
     width: 32%;
     text-align: center;
-    height: 50px;
+    height: 30px;
     padding: 10px 0;
 }
 
@@ -18,7 +18,7 @@
 }
 
 #content {
-    padding: 0 0 70px 0;
+    padding: 0 0 50px 0;
 }
 
 .inline {
@@ -46,13 +46,13 @@
 }
 
 #createEvent {
-    height: 50px;
+    height: 40px;
     font-size: 20px;
 }
 
 #head {
     background-color: #3b5998;
-    padding: 10px;
+    padding: 10px 10px 5px 10px;
     vertical-align: middle;
     margin-bottom: 10px;
 }
@@ -61,6 +61,19 @@
     color: #fff;
 }
 
-#head h1, h5 {
+#head h1, h4, h5 {
     color: #fff;
+}
+
+#head h4, h5 {
+    margin-bottom: 0;
+}
+
+#showEvents {
+    height: 40px;
+    font-size: 20px;
+}
+
+.form {
+    margin-left: 10px;
 }

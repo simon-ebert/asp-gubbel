@@ -42,15 +42,15 @@
                                 </form>-->
                 <?php
                 echo CHtml::link(
-                        '<div class="footer-button fbl">' . CHtml::image('assets/user_male3-512.png', '', $htmlOptions = array('height' => '50px')) . '</div>', array('site/profile'));
+                        '<div class="footer-button fbl">' . CHtml::image('assets/user_male3-512.png', '', $htmlOptions = array('height' => '30px')) . '</div>', array('site/profile'));
                 ?>
                 <?php
                 echo CHtml::link(
-                        '<div class="footer-button fbl">' . CHtml::image('assets/globe-512.png', '', $htmlOptions = array('height' => '50px')) . '</div>', array('site/eventsshow', 'show' => 'current'));
+                        '<div class="footer-button fbl">' . CHtml::image('assets/globe-512.png', '', $htmlOptions = array('height' => '30px')) . '</div>', array('site/eventsshow', 'show' => 'current'));
                 ?>
                 <?php
                 echo CHtml::link(
-                        '<div class="footer-button">' . CHtml::image('assets/help-512.png', '', $htmlOptions = array('height' => '50px')) . '</div>', array('site/faq'));
+                        '<div class="footer-button">' . CHtml::image('assets/help-512.png', '', $htmlOptions = array('height' => '30px')) . '</div>', array('site/faq'));
                 ?>
             </div>
         </div><!-- page -->
