@@ -6,7 +6,9 @@
 $this->pageTitle = Yii::app()->name . ' - Event';
 ?>
 
-<h1>Create event</h1>
+<div id="head">
+    <h1>Create event</h1>
+</div>
 
 <div class="form">
     <?php

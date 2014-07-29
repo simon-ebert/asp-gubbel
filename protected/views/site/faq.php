@@ -14,8 +14,9 @@ $cs->registerCoreScript('jquery.ui');
 $cs->registerCssFile($cs->getCoreScriptUrl() . '/jui/css/base/jquery-ui.css');
 ?>
 
-<h1>FAQ</h1>
-
+<div id="head">
+    <h1>FAQ</h1>
+</div>
 
 <div id = "accordion">
     <h3>Was ist ein Elektrofahrzeug? </h3>

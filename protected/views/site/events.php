@@ -10,14 +10,14 @@ $cs->registerCssFile($cs->getCoreScriptUrl() . '/jui/css/base/jquery-ui.css');
 $this->pageTitle = Yii::app()->name . ' - Events';
 ?>
 
-<div>
+<div id="head">
     <h1 class="inline"><?php echo ucfirst($show) . ' '; ?>Events </h1>
     <span class="right">
         <?php
         echo CHtml::submitButton('New', array('id' => 'createEvent', 'submit' => Yii::app()->createUrl('site/eventsCreate')));
         ?>
     </span>
-    <h4 class="xinline"><?php echo CHtml::link(' (' . (($show == 'current') ? 'past' : 'current') . ') ', array('site/eventsshow', 'show' => $showAlt)); ?></h4>
+    <h4 class="inline"><?php echo CHtml::link(' (&#8599;' . (($show == 'current') ? 'past' : 'current') . ') ', array('site/eventsshow', 'show' => $showAlt)); ?></h4>
 </div>
 
 <div id = "accordion">
@@ -67,9 +67,7 @@ $this->pageTitle = Yii::app()->name . ' - Events';
                     ?>
                 </ul>
             </div>
-
         <?php } ?>
-
     </div>
     <script>
         $(function() {

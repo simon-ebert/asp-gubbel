@@ -2,7 +2,7 @@
     position: fixed; 
     bottom: 0px; 
     width: 100%;
-    background-color: #e6e6e6;
+    background-color: #3b5998;
 }
 
 .footer-button {
@@ -18,7 +18,7 @@
 }
 
 #content {
-    padding-bottom: 70px;
+    padding: 0 0 70px 0;
 }
 
 .inline {
@@ -48,4 +48,19 @@
 #createEvent {
     height: 50px;
     font-size: 20px;
+}
+
+#head {
+    background-color: #3b5998;
+    padding: 10px;
+    vertical-align: middle;
+    margin-bottom: 10px;
+}
+
+#head a {
+    color: #fff;
+}
+
+#head h1, h5 {
+    color: #fff;
 }
