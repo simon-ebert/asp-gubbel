@@ -94,8 +94,16 @@ class SiteController extends Controller {
         $val = $this->client->getIo()->authenticatedRequest($req);
         $xml = new SimpleXMLElement($val->getResponseBody());
         $xml->registerXPathNamespace('gd', 'http://schemas.google.com/g/2005');
-        $contacts = $xml->xpath('//gd:email');
+        $objects = $xml->xpath('//gd:email');
 
+        $contacts = array();
+        foreach ($objects as $object) {
+            $contacts[] = (string) $object->attributes()->address;
+        }
+        
+        $contacts = implode("','", $contacts);
+        $contacts = "'".$contacts."'";
+                
         // event model
         $model = new EventForm;
         if (isset($_POST['EventForm'])) {
@@ -313,8 +321,8 @@ class SiteController extends Controller {
         if (isset($id)) {
             $events = $this->service->getService('Calendar')->events->listEvents($id, array('orderBy' => 'startTime', 'singleEvents' => true, $time => $limit));
         } else {
-            $id=null;
-            $events=null;
+            $id = null;
+            $events = null;
         }
 
         $this->render('events', array('calendarId' => $id, 'events' => $events, 'show' => $show, 'showAlt' => $showalt));

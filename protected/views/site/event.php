@@ -3,6 +3,11 @@
 /* @var $model EventForm */
 /* @var $form CActiveForm  */
 
+$cs = Yii::app()->getClientScript();
+
+$cs->registerCoreScript('jquery.ui');
+$cs->registerCssFile($cs->getCoreScriptUrl() . '/jui/css/base/jquery-ui.css');
+
 $this->pageTitle = Yii::app()->name . ' - Event';
 ?>
 
@@ -92,3 +97,14 @@ $this->pageTitle = Yii::app()->name . ' - Event';
 
     <?php $this->endWidget(); ?>
 </div><!-- form -->
+
+<script>
+    $(function() {
+        var availableTags = [
+<?php echo $contacts; ?>
+        ];
+        $("#EventForm_attendee1, #EventForm_attendee2, #EventForm_attendee3, #EventForm_attendee4").autocomplete({
+            source: availableTags
+        });
+    });
+</script>
