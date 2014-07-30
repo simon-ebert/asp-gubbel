@@ -7,10 +7,10 @@ $this->pageTitle = Yii::app()->name . ' - Event';
 ?>
 
 <div id="head">
-    <h1 class="inline">Create event</h1>
-    <span class="right">
+    <h1 class="inline"><?php echo (($update == true) ? 'Update' : 'Create') . ' event'; ?></h1>
+    <span class = "right">
         <?php
-        echo CHtml::submitButton('Back', array('id' => 'showEvents', 'submit' => Yii::app()->createUrl('site/eventsShow&show=current')));
+        echo CHtml::submitButton('Back', array('id' => 'showEvents', 'submit' => Yii::app()->createUrl('site/eventsShow')));
         ?>
     </span>
 </div>
@@ -28,25 +28,25 @@ $this->pageTitle = Yii::app()->name . ' - Event';
 
     <div class="row">
         <?php echo $form->labelEx($model, 'summary'); ?>
-        <?php echo $form->textField($model, 'summary', array('size' => 40)); ?>
+        <?php echo $form->textField($model, 'summary', array('size' => 40/* , 'value' => 'nur zum testen' */)); ?>
         <?php echo $form->error($model, 'summary'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'date'); ?>
-        <?php echo $form->dateField($model, 'date'); ?>
+        <?php echo $form->dateField($model, 'date'/* , array(/*'value' => '2014-07-31') */); ?>
         <?php echo $form->error($model, 'date'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'starttime'); ?>
-        <?php echo $form->timeField($model, 'starttime'); ?>
+        <?php echo $form->timeField($model, 'starttime'/* , array('value' => '08:00') */); ?>
         <?php echo $form->error($model, 'starttime'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'endtime'); ?>
-        <?php echo $form->timeField($model, 'endtime'); ?>
+        <?php echo $form->timeField($model, 'endtime'/* , array('value' => '18:00') */); ?>
         <?php echo $form->error($model, 'endtime'); ?>
     </div>
 
@@ -79,9 +79,15 @@ $this->pageTitle = Yii::app()->name . ' - Event';
         <?php echo $form->emailField($model, 'attendee4'); ?>
         <?php echo $form->error($model, 'attendee4'); ?>
     </div>
-
+    <?php CHtml::hiddenField('update', $update); ?>
     <div class="row buttons">
-        <?php echo CHtml::submitButton('Create event'); ?>
+        <?php
+        if ($update) {
+            echo CHtml::hiddenField('calendarId', $calendarId);
+            echo CHtml::hiddenField('eventId', $eventId);
+        }
+        ?>
+        <?php echo CHtml::submitButton((($update == true) ? 'Update' : 'Create') . ' event'); ?>
     </div>
 
     <?php $this->endWidget(); ?>

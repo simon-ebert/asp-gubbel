@@ -25,8 +25,8 @@ class EventForm extends CFormModel {
         return array(
             // name, email, subject and body are required
             array('summary', 'required'),
-            array('date', 'default'),
-            array('starttime, endtime', 'default'),
+            array('date', 'required'),
+            array('starttime, endtime', 'required'),
             array('location, description', 'default'),
             array('attendee1, attendee2, attendee3, attendee4', 'default')
         );

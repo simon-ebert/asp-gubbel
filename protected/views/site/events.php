@@ -14,7 +14,7 @@ $this->pageTitle = Yii::app()->name . ' - Events';
     <h1 class="inline"><?php echo ucfirst($show) . ' '; ?>Events </h1>
     <span class="right">
         <?php
-        echo CHtml::submitButton('New', array('id' => 'createEvent', 'submit' => Yii::app()->createUrl('site/eventsCreate')));
+        echo CHtml::submitButton('New', array('id' => 'createEvent', 'submit' => Yii::app()->createUrl('site/eventCreate')));
         ?>
     </span>
     <h4 class="inline"><?php echo CHtml::link(' (&#8599;' . (($show == 'current') ? 'past' : 'current') . ') ', array('site/eventsshow', 'show' => $showAlt)); ?></h4>
@@ -66,16 +66,36 @@ $this->pageTitle = Yii::app()->name . ' - Events';
                     }
                     ?>
                 </ul>
-                <span>
-                    <?php
-                    echo CHtml::SubmitButton('Edit', array('id' => 'editEvent', 'submit' => '#'));
-                    ?>
-                </span>
-                <span class="right">
-                    <?php
-                    echo CHtml::ajaxSubmitButton('Delete', array('id' => 'deleteEvent', 'submit' => '#'));
-                    ?>
-                </span>
+                <?php if ($show == 'current') { ?>
+                    <span class="inline"> 
+                        <?php
+                        $form = $this->beginWidget('CActiveForm', array(
+                            'action' => Yii::app()->createUrl('site/eventUpdate'))
+                        );
+                        echo CHtml::hiddenField('event', json_encode($event));
+                        echo CHtml::submitButton('Update');
+                        $this->endWidget();
+                        ?>
+                    </span>
+                    <span class="right">
+                        <?php
+                        echo CHtml::ajaxSubmitButton('Delete', Yii::app()->createUrl('site/eventDelete', array('calendarId' => $calendarId, 'eventId' => $event->id)), array(
+                            'type' => 'POST',
+                            'dataType' => 'json',
+                            'success' => 'js:function(data){
+                                        if(data.result==="success"){
+                                            location.reload();
+                                        }else{
+                                            alert(data.msg);
+                                        }
+                                    }',
+                            'beforeSend' => 'js:function(){
+                            alert("Do you really want to delete this event?");
+                        }',
+                        ));
+                        ?>
+                    </span>
+                <?php } ?>
             </div>
         <?php } ?>
     </div>
@@ -89,7 +109,7 @@ $this->pageTitle = Yii::app()->name . ' - Events';
 } else {
     echo '<p>There are currently no events</p>';
 }
-// We're not done yet. Remember to update the cached access token.
+// We're not done yet. Remember to update the cached access token .
 // Remember to replace $_SESSION with a real database or memcached.
 Yii::app()->session['auth_token'] = $this->client->getAccessToken();
 
