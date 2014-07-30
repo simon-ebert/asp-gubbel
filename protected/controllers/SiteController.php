@@ -312,6 +312,9 @@ class SiteController extends Controller {
 
         if (isset($id)) {
             $events = $this->service->getService('Calendar')->events->listEvents($id, array('orderBy' => 'startTime', 'singleEvents' => true, $time => $limit));
+        } else {
+            $id=null;
+            $events=null;
         }
 
         $this->render('events', array('calendarId' => $id, 'events' => $events, 'show' => $show, 'showAlt' => $showalt));

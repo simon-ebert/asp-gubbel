@@ -22,8 +22,9 @@ $this->pageTitle = Yii::app()->name . ' - Events';
 
 <div id = "accordion">
     <?php
-    $items = $events->getItems();
-    if (count($items) > 0) {
+    if (null !== $events)
+        $items = $events->getItems();
+    if (isset($items) && count($items) > 0) {
         if ($show == 'past') {
             $items = array_reverse($items);
         }
@@ -84,13 +85,13 @@ $this->pageTitle = Yii::app()->name . ' - Events';
                             'dataType' => 'json',
                             'success' => 'js:function(data){
                                         if(data.result==="success"){
-                                            location.reload();
+                                            location.replace(location.protocol + "//" + location.host + location.pathname + "?r=site/eventsshow");
                                         }else{
                                             alert(data.msg);
                                         }
                                     }',
                             'beforeSend' => 'js:function(){
-                            alert("Do you really want to delete this event?");
+                            return confirm("Do you really want to delete this event?");
                         }',
                         ));
                         ?>

@@ -34,7 +34,7 @@ $this->pageTitle = Yii::app()->name . ' - Event';
 
     <div class="row">
         <?php echo $form->labelEx($model, 'date'); ?>
-        <?php echo $form->dateField($model, 'date'/* , array(/*'value' => '2014-07-31') */); ?>
+        <?php echo $form->dateField($model, 'date'/* , array('value' => '2014-07-31') */); ?>
         <?php echo $form->error($model, 'date'); ?>
     </div>
 
